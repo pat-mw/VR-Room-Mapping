@@ -331,9 +331,10 @@ GameObject:
   - component: {fileID: 1231908176562229522}
   - component: {fileID: 2151018733955571234}
   - component: {fileID: 2151018733955571235}
+  - component: {fileID: 7588579736936361805}
   m_Layer: 0
   m_Name: zombie
-  m_TagString: Untagged
+  m_TagString: Zombie
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -411,7 +412,22 @@ MonoBehaviour:
   active: 1
   destinationRefreshTime: 1
   defaultZombieSpeed: 0.6
+  health: 1
   targetTransform: {fileID: 0}
+--- !u!136 &7588579736936361805
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2151018733955571233}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.2
+  m_Height: 1.8
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!1 &2170063669939944826
 GameObject:
   m_ObjectHideFlags: 0

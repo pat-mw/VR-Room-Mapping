@@ -25,6 +25,22 @@ public class @CubeControl : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""MousePosition"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""09100dd8-b62d-4dda-9ee4-d1434989c2de"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""MouseClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""997a84be-5d3b-4635-b124-7e74795b28f4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -82,6 +98,28 @@ public class @CubeControl : IInputActionCollection, IDisposable
                     ""action"": ""MoveCube"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7e87da01-5e0c-46c8-bb75-6322d33ce31b"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MousePosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8a75ebaa-cf35-4e6f-876e-589ae7fdb65b"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -91,6 +129,8 @@ public class @CubeControl : IInputActionCollection, IDisposable
         // CubeController
         m_CubeController = asset.FindActionMap("CubeController", throwIfNotFound: true);
         m_CubeController_MoveCube = m_CubeController.FindAction("MoveCube", throwIfNotFound: true);
+        m_CubeController_MousePosition = m_CubeController.FindAction("MousePosition", throwIfNotFound: true);
+        m_CubeController_MouseClick = m_CubeController.FindAction("MouseClick", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -141,11 +181,15 @@ public class @CubeControl : IInputActionCollection, IDisposable
     private readonly InputActionMap m_CubeController;
     private ICubeControllerActions m_CubeControllerActionsCallbackInterface;
     private readonly InputAction m_CubeController_MoveCube;
+    private readonly InputAction m_CubeController_MousePosition;
+    private readonly InputAction m_CubeController_MouseClick;
     public struct CubeControllerActions
     {
         private @CubeControl m_Wrapper;
         public CubeControllerActions(@CubeControl wrapper) { m_Wrapper = wrapper; }
         public InputAction @MoveCube => m_Wrapper.m_CubeController_MoveCube;
+        public InputAction @MousePosition => m_Wrapper.m_CubeController_MousePosition;
+        public InputAction @MouseClick => m_Wrapper.m_CubeController_MouseClick;
         public InputActionMap Get() { return m_Wrapper.m_CubeController; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -158,6 +202,12 @@ public class @CubeControl : IInputActionCollection, IDisposable
                 @MoveCube.started -= m_Wrapper.m_CubeControllerActionsCallbackInterface.OnMoveCube;
                 @MoveCube.performed -= m_Wrapper.m_CubeControllerActionsCallbackInterface.OnMoveCube;
                 @MoveCube.canceled -= m_Wrapper.m_CubeControllerActionsCallbackInterface.OnMoveCube;
+                @MousePosition.started -= m_Wrapper.m_CubeControllerActionsCallbackInterface.OnMousePosition;
+                @MousePosition.performed -= m_Wrapper.m_CubeControllerActionsCallbackInterface.OnMousePosition;
+                @MousePosition.canceled -= m_Wrapper.m_CubeControllerActionsCallbackInterface.OnMousePosition;
+                @MouseClick.started -= m_Wrapper.m_CubeControllerActionsCallbackInterface.OnMouseClick;
+                @MouseClick.performed -= m_Wrapper.m_CubeControllerActionsCallbackInterface.OnMouseClick;
+                @MouseClick.canceled -= m_Wrapper.m_CubeControllerActionsCallbackInterface.OnMouseClick;
             }
             m_Wrapper.m_CubeControllerActionsCallbackInterface = instance;
             if (instance != null)
@@ -165,6 +215,12 @@ public class @CubeControl : IInputActionCollection, IDisposable
                 @MoveCube.started += instance.OnMoveCube;
                 @MoveCube.performed += instance.OnMoveCube;
                 @MoveCube.canceled += instance.OnMoveCube;
+                @MousePosition.started += instance.OnMousePosition;
+                @MousePosition.performed += instance.OnMousePosition;
+                @MousePosition.canceled += instance.OnMousePosition;
+                @MouseClick.started += instance.OnMouseClick;
+                @MouseClick.performed += instance.OnMouseClick;
+                @MouseClick.canceled += instance.OnMouseClick;
             }
         }
     }
@@ -172,5 +228,7 @@ public class @CubeControl : IInputActionCollection, IDisposable
     public interface ICubeControllerActions
     {
         void OnMoveCube(InputAction.CallbackContext context);
+        void OnMousePosition(InputAction.CallbackContext context);
+        void OnMouseClick(InputAction.CallbackContext context);
     }
 }
